@@ -1,0 +1,7 @@
+{% if thread_list %}
+  <ul>
+  {% for thread in thread_list %}
+    <li><a href="{% url 'message_board:thread' thread.id %}">{{ thread.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% endif %}

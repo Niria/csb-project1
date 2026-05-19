@@ -1,0 +1,11 @@
+<div>
+  <h1>{{ thread.title }}</h1>
+  <p>{{ thread.content }}</p>
+  {% if replies %}
+    <ul>
+    {% for reply in replies %}
+      <li>{{ reply.content }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+</div>
