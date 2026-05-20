@@ -1,8 +1,9 @@
 <nav><a href="{% url 'message_board:index' %}">Back to Home</a></nav>
 <div>
   <h1>{{ thread.title }}</h1>
+  <p>Submitted by {{ thread.user.username }}</p>
   <p>{{ thread.content }}</p>
-  <form action="{% url 'message_board:delete_thread' thread.id %}">
+  <form action="{% url 'message_board:delete_thread' thread.id %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Delete thread"/>
   </form>
@@ -23,7 +24,7 @@
       <li>
         <span style="display: flex;">
           {{ reply.content }}
-          <form action="{% url 'message_board:delete_reply' thread.id reply.id%}">
+          <form action="{% url 'message_board:delete_reply' thread.id reply.id%}" method="post">
             {% csrf_token %}
             <input type="submit" value="Delete"/>
           </form>
