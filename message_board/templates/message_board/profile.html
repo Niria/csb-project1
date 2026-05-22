@@ -1,0 +1,18 @@
+{% extends 'message_board/base.html' %}
+
+{% block title %}Profile{% endblock title %}
+{% block content %}
+<div>
+  <h2>Profile</h2>
+  <table>
+    <tr>
+      <td>Username: </td>
+      <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+      <td>Email: </td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </table>
+</div>
+{% endblock content %}

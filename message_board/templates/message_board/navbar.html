@@ -1,0 +1,18 @@
+<nav>
+  <a href="{% url 'message_board:index' %}">
+    <h1>Message Board</h1>
+  </a>
+  <div>
+    {% if user.is_authenticated %}
+    <span>
+      <a href="{% url 'message_board:profile_view' user.username %}">{{ user.username }}</a>
+      <form action="{% url 'message_board:logout_view' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" />
+      </form>
+    </span>
+    {% else %}
+    <a href="{% url 'message_board:login_view' %}" type="button">Login</a>
+    {% endif %}
+  </div>
+</nav>

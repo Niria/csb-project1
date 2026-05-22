@@ -1,4 +1,7 @@
-<nav><a href="{% url 'message_board:index' %}">Back to Home</a></nav>
+{% extends 'message_board/base.html' %}
+
+{% block title %}{{ thread.title }}{% endblock title %}
+{% block content %}
 <div>
   <h1>{{ thread.title }}</h1>
   <p>Submitted by {{ thread.user.username }}</p>
@@ -34,3 +37,4 @@
     </ul>
   {% endif %}
 </div>
+{% endblock content %}

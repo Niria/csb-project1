@@ -7,6 +7,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("login", views.login_view, name="login_view"),
     path("logout", views.logout_view, name="logout_view"),
+    path("profile/<str:username>", views.profile_view, name="profile_view"),
     path("threads/<int:thread_id>/", views.thread, name="thread"),
     path("threads/new/", views.new_thread, name="new_thread"),
     path("threads/<int:thread_id>/delete/", views.delete_thread, name="delete_thread"),

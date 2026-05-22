@@ -1,3 +1,7 @@
+{% extends 'message_board/base.html' %}
+
+{% block title %}Login{% endblock title %}
+{% block content %}
 {% if messages %}
 <div>
   {% for message in messages %}
@@ -17,3 +21,4 @@
   </p>
   <input type="submit" value="Login"/>
 </form>
+{% endblock content %}

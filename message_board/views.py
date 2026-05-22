@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 
 from .models import Thread, Reply
-
+User = get_user_model()
 
 def index(request):
     thread_list = Thread.objects.all()
@@ -28,6 +28,10 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
     return redirect("message_board:index")
+
+def profile_view(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, "message_board/profile.html", {"user": user})
 
 def thread(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
