@@ -25,7 +25,7 @@ def login_view(request):
             return redirect("message_board:index")
         else:
             messages.error(request, "Invalid username or password")
-            
+
     return render(request, "message_board/login.html")
         
 def logout_view(request):
@@ -39,7 +39,7 @@ def profile_view(request, username):
 
 def thread(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
-    replies = Reply.objects.all().filter(thread=thread_id)
+    replies = Reply.objects.filter(thread=thread_id)
     return render(request, "message_board/thread.html", 
                   {"thread": thread, "replies": replies})
 

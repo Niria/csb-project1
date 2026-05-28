@@ -2,13 +2,6 @@
 
 {% block title %}Login{% endblock title %}
 {% block content %}
-{% if messages %}
-<div>
-  {% for message in messages %}
-    <p style="color: red;">{{ message }}</p>
-  {% endfor %}
-</div>
-{% endif %}
 <form action="{% url 'message_board:login_view' %}" method="post">
   {% csrf_token %}
   <p>
