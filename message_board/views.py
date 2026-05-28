@@ -13,6 +13,9 @@ def index(request):
     return render(request, "message_board/index.html", context)
 
 def login_view(request):
+    if request.method == "GET" and request.user.is_authenticated:
+        return redirect("message_board:index")
+    
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -22,6 +25,7 @@ def login_view(request):
             return redirect("message_board:index")
         else:
             messages.error(request, "Invalid username or password")
+            
     return render(request, "message_board/login.html")
         
 def logout_view(request):
