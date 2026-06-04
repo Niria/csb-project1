@@ -2,7 +2,7 @@
 
 {% block title%}Home{% endblock title %}
 {% block content %}
-<h3>New Thread</h3>
+<h3>Submit New Thread</h3>
 <form action="{% url 'message_board:new_thread' %}" method="post">
   {# Flaw 1 #}
   {# Uncomment the csrf_token from the row below to make sure it is sent to server with the form #}

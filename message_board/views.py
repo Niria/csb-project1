@@ -56,8 +56,8 @@ def logout_view(request):
 # Flaw 2
 def profile_view(request, username):
     # Uncomment the two lines below to apply fix for flaw 2
-    # if request.user.username != username:
-    #     raise PermissionDenied
+    if request.user.username != username:
+        raise PermissionDenied
     user = get_object_or_404(User, username=username)
     return render(request, "message_board/profile.html", {"user": user})
 
