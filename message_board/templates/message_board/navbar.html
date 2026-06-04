@@ -12,8 +12,9 @@
       </form>
     </span>
     {% else %}
-    {% if request.resolver_match.view_name != "message_board:login_view" %}
+    {% if request.resolver_match.view_name != "message_board:login_view" and request.resolver_match.view_name != "message_board:register_view" %}
     <a href="{% url 'message_board:login_view' %}" type="button">Login</a>
+    <a href="{% url 'message_board:register_view' %}" type="button">Register</a>
     {% endif %}
     {% endif %}
   </div>

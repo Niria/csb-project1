@@ -9,6 +9,7 @@
   {% if thread.user.id == request.user.id %}
   <form action="{% url 'message_board:delete_thread' thread.id %}" method="post">
     {% csrf_token %}
+    <input type="number" name="thread-id" hidden value="{{ thread.id }}" />
     <input type="submit" value="Delete thread"/>
   </form>
   {% endif %}
@@ -30,8 +31,9 @@
         <span style="display: flex;">
           {{ reply.content }}
           {% if reply.user.id == request.user.id %}
-          <form action="{% url 'message_board:delete_reply' thread.id reply.id%}" method="post">
+          <form action="{% url 'message_board:delete_reply' thread.id %}" method="post">
             {% csrf_token %}
+            <input type="number" name="reply-id" hidden value="{{ reply.id }}" />
             <input type="submit" value="Delete"/>
           </form>
           {% endif%}
