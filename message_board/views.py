@@ -56,8 +56,8 @@ def logout_view(request):
 # Flaw 2
 def profile_view(request, username):
     # Uncomment the two lines below to apply fix for flaw 2
-    if request.user.username != username:
-        raise PermissionDenied
+    # if request.user.username != username:
+    #     raise PermissionDenied
     user = get_object_or_404(User, username=username)
     return render(request, "message_board/profile.html", {"user": user})
 
@@ -102,3 +102,8 @@ def delete_reply(request, thread_id):
 #     reply = get_object_or_404(Reply, pk=reply_id)
 #     reply.delete()
 #     return redirect("message_board:thread", thread_id=thread_id)
+
+
+# Flaw 1 testing endpoint
+def csrf_exploit(request):
+    return render(request, "message_board/csrf_exploit.html")
