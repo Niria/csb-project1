@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import PermissionDenied
@@ -55,7 +56,7 @@ def logout_view(request):
 
 # Flaw 2
 def profile_view(request, username):
-    # Uncomment the two lines below to apply fix for flaw 2
+    # Uncomment the two lines below to apply the fix for flaw 2
     # if request.user.username != username:
     #     raise PermissionDenied
     user = get_object_or_404(User, username=username)
@@ -70,6 +71,7 @@ def thread(request, thread_id):
 # Flaw 1
 # Comment or delete the @csrf_exempt decorator from the row below
 @csrf_exempt
+@login_required(redirect_field_name=None)
 def new_thread(request):
     thread_title = request.POST["new-thread-title"]
     thread_content = request.POST["new-thread-content"]
@@ -77,11 +79,13 @@ def new_thread(request):
     thread.save()
     return redirect("message_board:thread", thread_id=thread.id)
 
+@login_required(redirect_field_name=None)
 def delete_thread(request, thread_id):
-    thread = get_object_or_404(Thread, pk=thread_id)
+    thread = get_object_or_404(Thread, pk=thread_id, user=request.user)
     thread.delete()
     return redirect("message_board:index")
 
+@login_required(redirect_field_name=None)
 def new_reply(request, thread_id):
     thread = get_object_or_404(Thread, pk=thread_id)
     reply_content = request.POST["new-reply-content"]
@@ -91,19 +95,30 @@ def new_reply(request, thread_id):
 
 # FLAW 3
 # Flawed endpoint:
+@login_required(redirect_field_name=None)
 def delete_reply(request, thread_id):
     reply_id = request.POST["reply-id"]
     with connection.cursor() as cursor:
         cursor.execute("DELETE FROM message_board_reply WHERE id =" + reply_id)
     return redirect("message_board:thread", thread_id=thread_id)
 
-# Fixed endpoint:
+# Flaw 3
+# Fixed endpoint version 1:
 # def delete_reply(request, thread_id):
+#     reply_id = request.POST["reply-id"]
 #     reply = get_object_or_404(Reply, pk=reply_id)
 #     reply.delete()
 #     return redirect("message_board:thread", thread_id=thread_id)
 
+# Flaw 3
+# Fixed endpoint version 2:
+# def delete_reply(request, thread_id):
+#     reply_id = request.POST["reply-id"]
+#     with connection.cursor() as cursor:
+#         cursor.execute("DELETE FROM message_board_reply WHERE id = %s", [reply_id])
+#     return redirect("message_board:thread", thread_id=thread_id)
 
-# Flaw 1 testing endpoint
+
+# Flaw 1 test endpoint
 def csrf_exploit(request):
     return render(request, "message_board/csrf_exploit.html")

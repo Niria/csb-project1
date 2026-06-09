@@ -2,6 +2,7 @@
 
 {% block title%}Home{% endblock title %}
 {% block content %}
+{% if user.is_authenticated %}
 <h3>Submit New Thread</h3>
 <form action="{% url 'message_board:new_thread' %}" method="post">
   {# Flaw 1 #}
@@ -19,7 +20,7 @@
   </p>
   <input type="submit" value="Submit" />
 </form>
-{# {% endif %} #}
+{% endif %}
 {% if thread_list %}
 <h2>Threads</h2>
 <ul>

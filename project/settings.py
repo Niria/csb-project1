@@ -26,12 +26,12 @@ SECRET_KEY = "django-insecure-p36l1c=%f1!uzf!es_fc%x^4%$1%)-o&@2gebqxb#cxlpku5+g
 
 
 # Flaw 4
-# Fix: flip DEBUG value from True to False to disable detailed debug logging
+# Fix: flip DEBUG value from True to False to disable detailed debug logging and set allowed hosts
 DEBUG = True
-# DEBUG = False
-
 ALLOWED_HOSTS = []
 
+# DEBUG = False
+# ALLOWED_HOSTS = ["localhost"]
 
 # Application definition
 
@@ -126,3 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+# Custom login URL
+
+LOGIN_URL = "/message_board/login"
