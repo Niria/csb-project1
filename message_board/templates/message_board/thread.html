@@ -12,6 +12,7 @@
     <input type="submit" value="Delete thread"/>
   </form>
   {% endif %}
+  {% if user.is_authenticated %}
   <form action="{% url 'message_board:new_reply' thread.id %}" method="post">
     {% csrf_token %}
     <p>
@@ -22,6 +23,7 @@
     </p>
     <input type="submit" value="Submit"/>
   </form>
+  {% endif %}
   {% if replies %}
     <h3>Replies</h3>
     <ul>

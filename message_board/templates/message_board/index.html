@@ -21,6 +21,12 @@
   <input type="submit" value="Submit" />
 </form>
 {% endif %}
+<h3>Search threads</h3>
+<form action="{% url 'message_board:search' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="search-term" />
+  <input type="submit" value="Search" />
+</form>
 {% if thread_list %}
 <h2>Threads</h2>
 <ul>

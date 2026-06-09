@@ -14,5 +14,6 @@ urlpatterns = [
     path("threads/<int:thread_id>/delete_thread/", views.delete_thread, name="delete_thread"),
     path("threads/<int:thread_id>/new_reply/", views.new_reply, name="new_reply"),
     path("threads/<int:thread_id>/delete_reply", views.delete_reply, name="delete_reply"),
+    path("search", views.search, name="search"),
     path("csrf_exploit", views.csrf_exploit, name="csrf_exploit"),
 ]

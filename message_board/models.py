@@ -16,7 +16,7 @@ class Thread(models.Model):
 class Reply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    content = models.CharField(max_length=100)
+    content = models.CharField(max_length=4096)
     upvotes = models.IntegerField(default=0)
 
     def __str__(self):

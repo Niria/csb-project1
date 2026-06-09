@@ -1,0 +1,17 @@
+{% extends 'message_board/base.html' %}
+
+{% block content %}
+{% if threads %}
+<h2>Search</h2>
+<h3>Threads found:</h3>
+<ul>
+  {% for thread in threads %}
+    <li>Id: {{ thread.0 }} Title: {{ thread.1 }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<strong>No threads found!</strong>
+{% endif %}
+<br>
+<a href="{% url 'message_board:index' %}">Back</a>
+{% endblock %}
