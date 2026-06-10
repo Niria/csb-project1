@@ -24,7 +24,7 @@
 <h3>Search threads</h3>
 <form action="{% url 'message_board:search' %}" method="post">
   {% csrf_token %}
-  <input type="text" name="search-term" />
+  <input type="text" name="search-term" style="width: 32em;" />
   <input type="submit" value="Search" />
 </form>
 {% if thread_list %}

@@ -23,9 +23,8 @@ def register_view(request):
     if request.method == "POST":
         form = UserCreationFormWithEmail(request.POST)
         if form.is_valid():
-            user = form.save()
-            # user.email = request.POST.get("email")
-            # user.save()
+            form.save()
+            messages.success(request, "Registration successful!")
             return redirect("message_board:login_view")
 
     else:
@@ -54,10 +53,10 @@ def logout_view(request):
         logout(request)
     return redirect("message_board:index")
 
-# Flaw 2
 @login_required(redirect_field_name=None)
 def profile_view(request, username):
-    # Uncomment the two lines below to apply the fix for flaw 2
+    # Flaw 2
+    # Fix: uncomment the two lines below
     # if request.user.username != username:
     #     raise PermissionDenied
     user = get_object_or_404(User, username=username)

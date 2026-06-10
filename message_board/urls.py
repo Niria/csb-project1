@@ -9,8 +9,12 @@ urlpatterns = [
     path("login", views.login_view, name="login_view"),
     path("logout", views.logout_view, name="logout_view"),
     path("profile/<str:username>", views.profile_view, name="profile_view"),
-    path("threads/<int:thread_id>/", views.thread, name="thread"),
-    path("threads/new_thread/", views.new_thread, name="new_thread"),
+
+    # Flaw 4
+    path("threads/<str:thread_id>/", views.thread, name="thread"),
+    # path("threads/<int:thread_id>/", views.thread, name="thread"),
+    
+    path("new_thread/", views.new_thread, name="new_thread"),
     path("threads/<int:thread_id>/delete_thread/", views.delete_thread, name="delete_thread"),
     path("threads/<int:thread_id>/new_reply/", views.new_reply, name="new_reply"),
     path("threads/<int:thread_id>/delete_reply", views.delete_reply, name="delete_reply"),

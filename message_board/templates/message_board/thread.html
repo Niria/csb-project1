@@ -9,7 +9,7 @@
   {% if thread.user.id == request.user.id %}
   <form action="{% url 'message_board:delete_thread' thread.id %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Delete thread"/>
+    <input type="submit" value="Delete thread" />
   </form>
   {% endif %}
   {% if user.is_authenticated %}
@@ -21,27 +21,27 @@
       <textarea name="new-reply-content" rows="3" cols="80" minlength="1" maxlength="4096"></textarea>
       <br>
     </p>
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="Submit" />
   </form>
   {% endif %}
   {% if replies %}
-    <h3>Replies</h3>
-    <ul>
+  <h3>Replies</h3>
+  <ul>
     {% for reply in replies %}
-      <li>
-        <span style="display: flex;">
-          {{ reply.content }}
-          {% if reply.user.id == request.user.id %}
-          <form action="{% url 'message_board:delete_reply' thread.id %}" method="post">
-            {% csrf_token %}
-            <input type="number" name="reply-id" hidden value="{{ reply.id }}" />
-            <input type="submit" value="Delete"/>
-          </form>
-          {% endif%}
-        </span>
-      </li>
+    <li>
+      <span style="display: flex;">
+        {{ reply.content }}
+        {% if reply.user.id == request.user.id %}
+        <form action="{% url 'message_board:delete_reply' thread.id %}" method="post">
+          {% csrf_token %}
+          <input type="number" name="reply-id" hidden value="{{ reply.id }}" />
+          <input type="submit" value="Delete" />
+        </form>
+        {% endif%}
+      </span>
+    </li>
     {% endfor %}
-    </ul>
+  </ul>
   {% endif %}
 </div>
 {% endblock content %}

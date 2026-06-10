@@ -5,13 +5,13 @@
 <form action="{% url 'message_board:register_view' %}" method="post">
   {% csrf_token %}
   {% for field in form %}
-    <p>
-      {{ field.label_tag }} {{ field }}
-      {% if field.errors %}
-        <span style="color:red;">{{ field.errors.0 }}</span>
-      {% endif %}
-    </p>
+  <p>
+    {{ field.label_tag }} {{ field }}
+    {% if field.errors %}
+    <span style="color:red;">{{ field.errors.0 }}</span>
+    {% endif %}
+  </p>
   {% endfor %}
-  <input type="submit" value="Register"/>
+  <input type="submit" value="Register" />
 </form>
 {% endblock content %}
