@@ -4,22 +4,14 @@
 {% block content %}
 <form action="{% url 'message_board:register_view' %}" method="post">
   {% csrf_token %}
-  <p>
-    <label>Username:</label>
-    <input type="text" name="username"/>
-  </p>
-  <p>
-    <label>Email:</label>
-    <input type="text" name="email"/>
-  </p>
-  <p>
-    <label>Password:</label>
-    <input type="password" name="password1"/>
-  </p>
-  <p>
-    <label>Password again:</label>
-    <input type="password" name="password2"/>
-  </p>
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }} {{ field }}
+      {% if field.errors %}
+        <span style="color:red;">{{ field.errors.0 }}</span>
+      {% endif %}
+    </p>
+  {% endfor %}
   <input type="submit" value="Register"/>
 </form>
 {% endblock content %}

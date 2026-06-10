@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationFormWithEmail
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -21,16 +21,17 @@ def register_view(request):
         return redirect("message_board:index")
     
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserCreationFormWithEmail(request.POST)
         if form.is_valid():
             user = form.save()
-            user.email = request.POST.get("email")
-            user.save()
+            # user.email = request.POST.get("email")
+            # user.save()
             return redirect("message_board:login_view")
-        else:
-            messages.error(request, "Registration failed")
-        
-    return render(request, "message_board/register.html")
+
+    else:
+        form = UserCreationFormWithEmail()
+
+    return render(request, "message_board/register.html", {"form": form})
 
 def login_view(request):
     if request.method == "GET" and request.user.is_authenticated:
@@ -54,6 +55,7 @@ def logout_view(request):
     return redirect("message_board:index")
 
 # Flaw 2
+@login_required(redirect_field_name=None)
 def profile_view(request, username):
     # Uncomment the two lines below to apply the fix for flaw 2
     # if request.user.username != username:
